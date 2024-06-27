@@ -1,0 +1,12 @@
+.transaction-form{
+    width: 70vw;
+    padding: 1rem 0;
+}
+
+
+@media screen and (max-width: 600px) {
+    .transaction-form{
+        width: 90vw;
+        padding: 1rem 0;
+    }
+}
