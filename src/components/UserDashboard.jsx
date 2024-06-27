@@ -21,7 +21,7 @@ export default function UserDashboard() {
     useEffect(() => {
         //calculating total expense for the first time.
         dispatch(calculateTotalExpense())
-    }, [])
+    }, [numberOfTransactions])
 
     return (
         <div className='user-dashboard'>

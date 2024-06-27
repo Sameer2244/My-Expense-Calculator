@@ -11,6 +11,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addBunchOfTransactions, addTransaction, deleteTransaction } from '../redux/transactionSlice';
 import { Button } from '@mui/material';
 import { changeIncome, changeNumberOfTransactions } from '../redux/userSlice';
+import { DataGrid } from '@mui/x-data-grid';
+
+
+
+//styling for table
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
         backgroundColor: theme.palette.primary.main,
@@ -70,42 +75,79 @@ export default function TransactionTable() {
         localStorage.setItem("transactions", JSON.stringify(transactions.filter(transaction => transaction.transactionid !== id)))
     }
 
+
+    const columns = [
+        { field: 'id', headerName: 'Transaction ID', width: 300 },
+        { field: 'name', headerName: 'Transaction Name', width: 300 },
+        { field: 'amount', type: 'number', headerName: 'Amount', width: 100 },
+        {
+            field: 'category',
+            headerName: 'Category',
+            width: 300,
+        },
+        {
+            field: 'createdAt',
+            headerName: 'Created At',
+            width: 300,
+        },
+        {
+            field: 'delete',
+            headerName: 'Delete',
+            width: 300,
+            renderCell: (params) => (
+                <Button variant="contained" onClick={() => deleteTransactionHandler(params.row.transactionid, params.row.amount, params.row.category)}>Delete</Button>
+            ),
+        },
+    ];
     return (
-        <TableContainer component={Paper}>
-            <h2>Transactions Record</h2>
-            <Table sx={{ minWidth: 700 }} aria-label="customized table">
-                <TableHead>
-                    <TableRow>
-                        <StyledTableCell>Transaction ID</StyledTableCell>
-                        <StyledTableCell align="right">Name</StyledTableCell>
-                        <StyledTableCell align="right">Amount</StyledTableCell>
-                        <StyledTableCell align="right">Category</StyledTableCell>
-                        <StyledTableCell align="right">Created At (date)</StyledTableCell>
-                        <StyledTableCell align="right">Delete Transaction</StyledTableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {transactions.map((row) => (
-                        <StyledTableRow key={row.transactionid}>
-                            <StyledTableCell component="th" scope="row">
-                                {row.transactionid}
-                            </StyledTableCell>
-                            <StyledTableCell align="right">{row.name}</StyledTableCell>
-                            <StyledTableCell align="right">{row.amount}</StyledTableCell>
-                            <StyledTableCell align="right">{row.category}</StyledTableCell>
-                            <StyledTableCell align="right">{row.createdAt}</StyledTableCell>
-                            <StyledTableCell align="right" >
-                                <Button
-                                    variant="contained"
-                                    color="error"
-                                    onClick={() => deleteTransactionHandler(row.transactionid, row.amount, row.category)}>
-                                    Delete
-                                </Button></StyledTableCell>
-                        </StyledTableRow>
-                    ))}
-                </TableBody>
-            </Table>
-            {transactions.length == 0 && <p style={{ textAlign: "center" }}>No transactions added yet</p>}
-        </TableContainer>
+        // <TableContainer component={Paper}>
+        //     <h2>Transactions Record</h2>
+        //     <Table sx={{ minWidth: 700 }} aria-label="customized table">
+        //         <TableHead>
+        //             <TableRow>
+        //                 <StyledTableCell>Transaction ID</StyledTableCell>
+        //                 <StyledTableCell align="right">Name</StyledTableCell>
+        //                 <StyledTableCell align="right">Amount</StyledTableCell>
+        //                 <StyledTableCell align="right">Category</StyledTableCell>
+        //                 <StyledTableCell align="right">Created At (date)</StyledTableCell>
+        //                 <StyledTableCell align="right">Delete Transaction</StyledTableCell>
+        //             </TableRow>
+        //         </TableHead>
+        //         <TableBody>
+        //             {transactions.map((row) => (
+        //                 <StyledTableRow key={row.transactionid}>
+        //                     <StyledTableCell component="th" scope="row">
+        //                         {row.transactionid}
+        //                     </StyledTableCell>
+        //                     <StyledTableCell align="right">{row.name}</StyledTableCell>
+        //                     <StyledTableCell align="right">{row.amount}</StyledTableCell>
+        //                     <StyledTableCell align="right">{row.category}</StyledTableCell>
+        //                     <StyledTableCell align="right">{row.createdAt}</StyledTableCell>
+        //                     <StyledTableCell align="right" >
+        //                         <Button
+        //                             variant="contained"
+        //                             color="error"
+        //                             onClick={() => deleteTransactionHandler(row.transactionid, row.amount, row.category)}>
+        //                             Delete
+        //                         </Button></StyledTableCell>
+        //                 </StyledTableRow>
+        //             ))}
+        //         </TableBody>
+        //     </Table>
+        //     {transactions.length == 0 && <p style={{ textAlign: "center" }}>No transactions added yet</p>}
+        // </TableContainer>
+
+        <div style={{ height: 400, width: '100%' }}>
+            <DataGrid
+                rows={transactions}
+                columns={columns}
+                initialState={{
+                    pagination: {
+                        paginationModel: { page: 0, pageSize: 5 },
+                    },
+                }}
+                pageSizeOptions={[5, 10]}
+            />
+        </div>
     );
 }

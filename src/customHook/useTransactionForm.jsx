@@ -16,7 +16,7 @@ export default function useTransactionForm() {
     const [primaryCategory, setPrimaryCategory] = useState('')
     const [isTransactionAdded, setIsTransactionAdded] = useState(false)
     const addTransactionHandler = () => {
-        const transactiondata = { transactionid: uuidv4(), name: transactionName, amount: amount, category: primaryCategory != "Others" ? primaryCategory : category, createdAt: new Date().toUTCString() }
+        const transactiondata = { id: uuidv4(), name: transactionName, amount: amount, category: primaryCategory != "Others" ? primaryCategory : category, createdAt: new Date().toUTCString() }
         if (transactiondata.amount <= income || transactiondata.category == "Salary") {
             if (transactiondata.name.length > 0 && (transactiondata.category.length > 0 || transactiondata.category == "Others") && transactiondata.amount > 0) {
                 setTransactionName("")

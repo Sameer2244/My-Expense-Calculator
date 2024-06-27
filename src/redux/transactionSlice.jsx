@@ -21,7 +21,9 @@ export const transactionListSlice = createSlice({
         calculateTotalExpense: (state) => {
             let expense = 0
             state.transactions.forEach((transaction) => {
-                expense += transaction.amount
+                if (transaction.category != "Salary") {
+                    expense += Number(transaction.amount)
+                }
             })
             state.expense = expense
         },
