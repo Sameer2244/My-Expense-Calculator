@@ -22,23 +22,23 @@ Node.js (https://nodejs.org/)
 npm or yarn
 
 # Clone the repository:
->>git clone https://github.com/yourusername/finance-tracker.git
->>cd finance-tracker
+```git clone https://github.com/yourusername/finance-tracker.git
+cd finance-tracker```
 
 # Install the dependencies:
->>npm install
-# or
->>yarn install
+```npm install
+or
+yarn install```
 
 # Running the Application
 # Start the development server:
->>npm run dev
-# or
->>yarn dev
+```npm run dev
+or
+yarn dev```
 
 # build the application
->>npm run build
-# or
->>yarn build
+```npm run build
+or
+yarn build```
 
 # Open your browser and navigate to http://localhost:5173
